@@ -2,7 +2,8 @@ const { default: axios } = require("axios");
 
 const predictController = async (req, res) => {
     try {
-        const response = await axios.get("http://host.docker.internal:8000");
+        const host = process.env.AI_HOST
+        const response = await axios.get(host)
         console.log(response.data);
         res.status(200).json({
             status: true,
