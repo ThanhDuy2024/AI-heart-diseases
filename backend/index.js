@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const indexRoute = require("./routes/index.route.js");
 const connectDatabase = require("./configs/database.config.js");
+const connectMongodb = require("./configs/mongodb.config.js");
 const app = express();
 const port = 4000;
 
@@ -15,6 +16,7 @@ app.use(cors({
 }));
 
 connectDatabase.connectDatabase();
+connectMongodb();
 app.use(express.json());
 app.use(cookieParser());
 
