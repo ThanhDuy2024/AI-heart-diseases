@@ -1,10 +1,19 @@
 const express = require("express");
 require('dotenv').config();
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const indexRoute = require("./routes/index.route.js");
 const connectDatabase = require("./configs/database.config.js");
 const app = express();
 const port = 4000;
+
+app.use(cors({
+  origin: process.env.HOST,
+  methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
+
 connectDatabase.connectDatabase();
 app.use(express.json());
 app.use(cookieParser());

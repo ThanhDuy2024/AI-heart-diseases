@@ -2,8 +2,15 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:4000",
+]
 
 model = joblib.load("framing_ham_heart_disease_model.pkl")
 scaler = joblib.load("scaler.pkl")
@@ -24,6 +31,10 @@ class PatientData(BaseModel):
     BMI: float
     heartRate: float
     glucose: float
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello World"}
 
 @app.post("/predict")
 def predict(data: PatientData):
