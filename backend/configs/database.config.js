@@ -18,6 +18,8 @@ const connectDatabase = async (
   for (let i = 1; i <= retries; i++) {
     try {
       await sequelize.authenticate();
+      // sequelize.sync({alter: true});
+      sequelize.sync();
       console.log("Connection has been established successfully.");
       return;
     } catch (error) {
@@ -41,6 +43,6 @@ const connectDatabase = async (
 };
 
 module.exports = {
-    connectDatabase,
-    sequelize
+  connectDatabase,
+  sequelize
 }
