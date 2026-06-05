@@ -1,3 +1,9 @@
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const genAI = new GoogleGenerativeAI(
+  process.env.GEMINI_API_KEY
+);
+
 const chatboxController = async (req, res) => {
     const { message } = req.body;
     console.log(`\n[${new Date().toISOString()}] Nhận tin nhắn mới: "${message}"`);
