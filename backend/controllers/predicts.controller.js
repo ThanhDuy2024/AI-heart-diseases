@@ -1,14 +1,23 @@
 const { default: axios } = require("axios");
+const Histories = require("../models/Histories.model");
 
 const predictController = async (req, res) => {
     try {
+        const data = req.body;
         const host = process.env.AI_HOST
-        const response = await axios.get(host)
-        console.log(response.data);
+        const response = await axios.post(`${host}/predict`, data);
+
+        await Histories.create({
+            userId: req.users.id,
+            data: data,
+            predict: response.data
+        })
+
         res.status(200).json({
             status: true,
-            message: "predict is here"
+            data: response.data
         })
+
     } catch (error) {
         console.log(error);
         res.status(400).json({
